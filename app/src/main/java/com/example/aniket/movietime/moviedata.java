@@ -1,7 +1,9 @@
 package com.example.aniket.movietime;
 
 
-public class moviedata {
+import java.io.Serializable;
+
+public class moviedata implements Serializable{
     public  String title;
     public  String overview;
     public  String releasedate;

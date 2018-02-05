@@ -3,10 +3,14 @@ package com.example.aniket.movietime;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 
@@ -18,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -160,6 +165,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         view = (GridView) findViewById(R.id.mainview);
         ListAdapter adapter=new adapter_main(this,data);
         view.setAdapter(adapter);
+        view.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent movie_intent=new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
+                        movie_intent.putExtra("data",  data[i]);
+                        startActivity(movie_intent);
+                    }
+                }
+        );
 
     }
 }

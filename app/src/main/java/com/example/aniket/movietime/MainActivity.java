@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 
@@ -32,20 +33,59 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<URL>{
 
     URL mp_url;
+int page=1;
+int k=0;
+String page1=Integer.toString(page);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String most_popular="https://api.themoviedb.org/3/movie/top_rated?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US";
+        task();
+
+
+
+        Button prev=(Button)findViewById(R.id.prev);
+        prev.setOnClickListener(
+                new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        if(page>1){
+                            page--;
+                            page1=Integer.toString(page);
+                        task();}
+                    }
+                }
+        );
+
+
+        Button forward=(Button)findViewById(R.id.forward);
+        forward.setOnClickListener(
+                new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        if(page<800){
+                            page++;
+                            page1=Integer.toString(page);
+                        task();}
+                    }
+                }
+        );
+
+
+    }
+    String data1;
+
+    public  void task()
+    {
+        String most_popular="https://api.themoviedb.org/3/movie/top_rated?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&page="+page1;
         mp_url=createUrl(most_popular);
         String TAG="ritik";
         Log.i(TAG, "onCreate: "+mp_url);
 
         LoaderManager loaderManager =getLoaderManager();
-        loaderManager.initLoader(0,null,this);
+        loaderManager.initLoader(k++,null,this);
     }
-    String data1;
 
     @Override
     public Loader<URL> onCreateLoader(int i, Bundle bundle) {
@@ -177,4 +217,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         );
 
     }
+
+
+
+
 }

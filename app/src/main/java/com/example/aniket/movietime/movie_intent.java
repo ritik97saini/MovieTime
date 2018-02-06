@@ -29,7 +29,7 @@ public class movie_intent extends AppCompatActivity{
 
         title.setText(sourcedata.title);
         overview.setText(sourcedata.overview);
-        rating.setText(sourcedata.rating.toString());
+        rating.setText("  Rating :  "+sourcedata.rating.toString());
         Glide.with(this).load(url).into(poster);
 
 

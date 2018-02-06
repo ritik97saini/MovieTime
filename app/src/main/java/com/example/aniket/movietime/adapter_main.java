@@ -36,20 +36,14 @@ public class adapter_main extends ArrayAdapter<moviedata>{
         TextView title=(TextView)adap.findViewById(R.id.title);
         TextView rating=(TextView)adap.findViewById(R.id.rating);
         String posterp="https://image.tmdb.org/t/p/w500";
-        posterp+=data[i].imgpath;
-        URL url=MainActivity.createUrl(posterp);
-        Bitmap bmp= null;
-      /*  try {
-            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        ImageView poster=(ImageView)adap.findViewById(R.id.poster);
-        Glide.with(getContext()).load(url).into(poster);
 
-        //poster.setImageBitmap(bmp);
+
 
 if(data[i]!=null){
+    posterp+=data[i].imgpath;
+    URL url=MainActivity.createUrl(posterp);
+    ImageView poster=(ImageView)adap.findViewById(R.id.poster);
+    Glide.with(getContext()).load(url).into(poster);
         title.setText(data[i].title);
         rating.setText((data[i].rating).toString());   }
         return adap;

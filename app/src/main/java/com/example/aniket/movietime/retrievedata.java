@@ -29,12 +29,12 @@ String data1;
     public URL loadInBackground() {
         try {
 
-           data1 = MainActivity.makeHttpRequest(mp_url);
+           data1 = tab.makeHttpRequest(mp_url);
             Log.i(TAG, "loadInBackground: "+data1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MainActivity.readfromjson(data1);
+        tab.readfromjson(data1);
         return null;
     }
 }

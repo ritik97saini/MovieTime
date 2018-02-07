@@ -44,7 +44,8 @@
             android1:layout_marginRight="50dp"
 
             android1:text="prev"
-            android1:textColor="@color/yellow"
+            android1:textColor="@color/textcolor"
+            android1:background="#222"
             android1:visibility="visible" />
 
         <Button
@@ -52,9 +53,10 @@
             android1:layout_width="60dp"
             android1:layout_height="35dp"
             android1:layout_marginLeft="20dp"
-            android1:gravity="right"
+            android1:gravity="center"
             android1:text="next"
-            android1:textColor="@color/yellow"
+            android1:textColor="@color/textcolor"
+            android1:background="#222"
 
             />
 

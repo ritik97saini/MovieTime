@@ -89,7 +89,7 @@ String page1=Integer.toString(page);
 
     @Override
     public Loader<URL> onCreateLoader(int i, Bundle bundle) {
-        retrievedata load= new retrievedata(this,mp_url);
+        retrievedata load= new retrievedata(this,mp_url,0);
         return load;
     }
 

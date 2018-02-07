@@ -14,13 +14,19 @@ public class pageradapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return new tab(position);
+    public Fragment getItem(int position)
+    {
+        if(position==0)
+        return new tab();
+        if(position==1)
+            return new top_rated_tab();
+        else return new upcoming_tab();
+
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }
 

@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TableLayout;
 
 
-public class main extends AppCompatActivity implements tab.OnFragmentInteractionListener {
+public class main extends AppCompatActivity implements tab.OnFragmentInteractionListener,upcoming_tab.OnFragmentInteractionListener,top_rated_tab.OnFragmentInteractionListener {
 
 
     @Override
@@ -19,10 +19,9 @@ public class main extends AppCompatActivity implements tab.OnFragmentInteraction
         setContentView(R.layout.movies_display);
 
         final TabLayout tabs = (TabLayout) findViewById(R.id.tablayout);
-        tabs.addTab(tabs.newTab().setText("upcoming"));
-        tabs.addTab(tabs.newTab().setText("now_playing"));
-        tabs.addTab(tabs.newTab().setText("popular"));
-        tabs.addTab(tabs.newTab().setText("top_rated"));
+        tabs.addTab(tabs.newTab().setText("Popular"));
+        tabs.addTab(tabs.newTab().setText("Top Rated"));
+        tabs.addTab(tabs.newTab().setText("Upcoming"));
         tabs.setTabGravity(TableLayout.TEXT_ALIGNMENT_GRAVITY);
 
         final ViewPager pager= (ViewPager)findViewById(R.id.viewpager);

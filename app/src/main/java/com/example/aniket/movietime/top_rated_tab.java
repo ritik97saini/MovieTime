@@ -32,7 +32,7 @@ import java.nio.charset.Charset;
 import java.util.Random;
 
 
-public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> {
+public class top_rated_tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -49,8 +49,8 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
     String pageq="popular";
     String most_popular="https://api.themoviedb.org/3/movie/"+pageq+"?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&page="+page1;
 
-    public tab() {
-
+    public top_rated_tab() {
+        pageq="top_rated";most_popular="https://api.themoviedb.org/3/movie/"+pageq+"?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&page="+page1;
     }
 
 
@@ -178,10 +178,9 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
 
     private void printdata()
     {
-
+        Log.i("ritik", "printdata: printing ");
         ListAdapter adapter=new adapter_main(getContext(),data);
         view1.setAdapter(adapter);
-        Log.i("ritik", "printdata: printing ");
         view1.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -199,7 +198,7 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.activity_main,container,false);
+        View view=inflater.inflate(R.layout.top_rated,container,false);
         Button prev=(Button)view.findViewById(R.id.prev);
         prev.setOnClickListener(
                 new Button.OnClickListener(){
@@ -230,7 +229,7 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
                     }
                 }
         );
-    task();
+        task();
         return view;
     }
 
@@ -260,12 +259,12 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
 
     @Override
     public Loader<URL> onCreateLoader(int i, Bundle bundle) {
-        retrievedata load= new retrievedata(getContext(),mp_url,0);
+        retrievedata load= new retrievedata(getContext(),mp_url,1);
         return load;    }
 
     @Override
     public void onLoadFinished(Loader<URL> loader, URL url) {
-printdata();
+        printdata();
     }
 
     @Override

@@ -4,11 +4,18 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -178,20 +185,21 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
 
     private void printdata()
     {
-        Log.i("ritik", "printdata: printing ");
-        ListAdapter adapter=new adapter_main(getContext(),data);
-        view1.setAdapter(adapter);
-        view1.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent movie_intent=new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
-                        movie_intent.putExtra("data",  data[i]);
-                        startActivity(movie_intent);
+        if(isAdded()) {
+            Log.i("ritik", "printdata: printing ");
+            ListAdapter adapter = new adapter_main(getContext(), data);
+            view1.setAdapter(adapter);
+            view1.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent movie_intent = new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
+                            movie_intent.putExtra("data", data[i]);
+                            startActivity(movie_intent);
+                        }
                     }
-                }
-        );
-
+            );
+        }
     }
 
 
@@ -199,6 +207,7 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.upcoming,container,false);
+
         Button prev=(Button)view.findViewById(R.id.prev);
         prev.setOnClickListener(
                 new Button.OnClickListener(){
@@ -229,9 +238,11 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
                     }
                 }
         );
+
         task();
         return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

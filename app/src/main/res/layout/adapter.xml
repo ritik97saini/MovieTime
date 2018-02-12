@@ -15,7 +15,7 @@
         android:id="@+id/title"
         android:layout_width="165dp"
         android:layout_height="75dp"
-
+        android:textColor="@color/textcolor"
         android:layout_weight="1"
         android:text="Title"
         android:textAlignment="center"
@@ -26,6 +26,7 @@
         android:id="@+id/rating"
         android:layout_width="165dp"
         android:layout_height="35dp"
+        android:textColor="@color/textcolor"
         android:fontFamily="serif"
         android:text="rating"
         android:textAlignment="center"

@@ -4,17 +4,27 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -36,6 +46,9 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    ListView listitem;
+    String[] names={"ritik","saini"};
 
     URL mp_url;
     int page=1;
@@ -178,21 +191,21 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
 
     private void printdata()
     {
-
-        ListAdapter adapter=new adapter_main(getContext(),data);
-        view1.setAdapter(adapter);
-        Log.i("ritik", "printdata: printing ");
-        view1.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent movie_intent=new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
-                        movie_intent.putExtra("data",  data[i]);
-                        startActivity(movie_intent);
+        if(isAdded()) {
+            ListAdapter adapter = new adapter_main(getContext(), data);
+            view1.setAdapter(adapter);
+            Log.i("ritik", "printdata: printing ");
+            view1.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent movie_intent = new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
+                            movie_intent.putExtra("data", data[i]);
+                            startActivity(movie_intent);
+                        }
                     }
-                }
-        );
-
+            );
+        }
     }
 
 
@@ -200,6 +213,7 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_main,container,false);
+
         Button prev=(Button)view.findViewById(R.id.prev);
         prev.setOnClickListener(
                 new Button.OnClickListener(){
@@ -230,9 +244,13 @@ public class tab extends Fragment implements LoaderManager.LoaderCallbacks<URL> 
                     }
                 }
         );
+
+
     task();
         return view;
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

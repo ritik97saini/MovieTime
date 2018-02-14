@@ -1,12 +1,18 @@
 package com.example.aniket.movietime;
 
 
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +22,31 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Random;
+
+public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener,LoaderManager.LoaderCallbacks<URL> {
 
 
     YouTubePlayerView trailer;
+
+    URL mp_url;
+    String most_popular;
+    String id,yapi;
+   static String key;
+   String img="https://image.tmdb.org/t/p/w500";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,30 +58,140 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
         TextView overview=(TextView)findViewById(R.id.overview);
         TextView rating=(TextView)findViewById(R.id.rating);
         ImageView poster=(ImageView)findViewById(R.id.poster);
+        id=Integer.toString(sourcedata._id);
 
 
-        String yapi="AIzaSyCz1KGSRQAHbByi5rTQAm27VJ-Sf6TbeY4";
-         trailer=(YouTubePlayerView) findViewById(R.id.trailer);
-        trailer.initialize(yapi,this);
 
         title.setText(sourcedata.title);
         overview.setText(sourcedata.overview);
         rating.setText("  Rating :  "+sourcedata.rating.toString());
+         yapi="AIzaSyCz1KGSRQAHbByi5rTQAm27VJ-Sf6TbeY4";
+        trailer=(YouTubePlayerView) findViewById(R.id.trailer);
+        if(sourcedata.video)
+        Log.i("ritik", "onCreate: video ");
+
+            task();
 
 
 
+
+
+    }
+
+    public  void task()
+    {
+        most_popular="https://api.themoviedb.org/3/movie/"+id+"/videos?api_key=1a7081ac1a8acf21ddff343f5485bab2";
+        mp_url=createUrl(most_popular);
+        String TAG="ritik";
+        Log.i(TAG, "onCreate: "+mp_url);
+        Random random =new Random();
+        LoaderManager loaderManager =getLoaderManager();
+        loaderManager.initLoader(random.nextInt(100),null,this);
     }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
     if(!b)
     {
-        youTubePlayer.cueVideo("64-iSYVmMVY");
+        youTubePlayer.cueVideo(key);
     }
     }
 
     @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+    public void onInitializationFailure(YouTubePlayer.Provider provider , YouTubeInitializationResult youTubeInitializationResult) {
         Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public Loader<URL> onCreateLoader(int i, Bundle bundle) {
+        retrievedata load= new retrievedata(this,mp_url,3);
+        return load;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<URL> loader, URL url) {
+
+        trailer.initialize(yapi,this);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<URL> loader) {
+
+    }
+    public static String readFromStream(InputStream inputStream) throws IOException {
+        StringBuilder output = new StringBuilder();
+        if (inputStream != null) {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String line = reader.readLine();
+            while (line != null) {
+                output.append(line);
+                line = reader.readLine();
+            }
+        }
+        return output.toString();
+    }
+
+    public static String makeHttpRequest(URL url) throws IOException {
+        String jsonResponse = "";
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.connect();
+            inputStream = urlConnection.getInputStream();
+            jsonResponse = readFromStream(inputStream);
+        } catch (IOException e) {
+
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                // function must handle java.io.IOException here
+                inputStream.close();
+            }
+        }
+        return jsonResponse;
+    }
+
+
+
+    public static URL createUrl(String stringUrl) {
+        URL url = null;
+        try {
+            url = new URL(stringUrl);
+        } catch (MalformedURLException exception) {
+            Log.e("ritik", "Error with creating URL", exception);
+            return null;
+        }
+        return url;
+    }
+
+    static moviedata[] data=new moviedata[20];
+    public static void readfromjson(String json)
+    {
+
+
+        try {
+            JSONObject base=new JSONObject(json);
+            JSONArray movies = base.getJSONArray("results");
+            if(movies.length()>0)
+            {
+                JSONObject movie =movies.getJSONObject(0);
+                key= movie.getString("key");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    GridView view1;
+
+
 }

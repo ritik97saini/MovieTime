@@ -52,7 +52,7 @@ String data1;
         top_rated_tab.readfromjson(data1);
         return null;
     }
-    else
+    if(pos==2)
     {
         try {
 
@@ -64,5 +64,18 @@ String data1;
         upcoming_tab.readfromjson(data1);
         return null;
     }
+    else
+    {
+        try {
+
+            data1 = movie_intent.makeHttpRequest(mp_url);
+            Log.i(TAG, "loadInBackground: "+data1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        movie_intent.readfromjson(data1);
+        return null;
+    }
+
     }
     }

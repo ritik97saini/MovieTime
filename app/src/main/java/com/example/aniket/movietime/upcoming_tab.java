@@ -162,6 +162,7 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
                     String overview=movie.getString("overview");
                     Double vote_average=movie.getDouble("vote_average");
                     String release_date=movie.getString("release_date");
+                    Boolean vid=movie.getBoolean("video");
                     moviedata obj =new moviedata();
                     obj.releasedate=release_date;
                     obj.rating=vote_average;
@@ -169,6 +170,7 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
                     obj.imgpath=poster_path;
                     obj.title=title;
                     obj._id=id;
+                    obj.video=vid;
                     data[i]=obj;
 
 

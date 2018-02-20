@@ -64,7 +64,7 @@ String data1;
         upcoming_tab.readfromjson(data1);
         return null;
     }
-    else
+    if(pos==3)
     {
         try {
 
@@ -76,6 +76,19 @@ String data1;
         movie_intent.readfromjson(data1);
         return null;
     }
+    else
+    {
+        try {
+
+            data1 = movie_intent.makeHttpRequestcast(mp_url);
+            Log.i(TAG, "loadInBackground: "+data1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        movie_intent.readfromjsoncast(data1);
+        return null;
+    }
 
     }
+
     }

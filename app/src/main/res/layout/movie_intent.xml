@@ -28,6 +28,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="2dp"
+                android:text="An anthology series based on popular Internet Creepypastas, including Candle Cove, The No-End House, Butcher's Block and Hidden Door."
+                android:textAlignment="center"
+                android:textColor="@color/textcolor"
+                android:textSize="18sp" />
+
+            <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,17 +49,6 @@
                 android:textColor="@color/textcolor"
                 android:textSize="40sp"
                 android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/overview"
-            android:textColor="@color/textcolor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="An anthology series based on popular Internet Creepypastas, including Candle Cove, The No-End House, Butcher's Block and Hidden Door."
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:layout_margin="5dp"
-            android:padding="2dp"/>
 
             <TextView
                 android:id="@+id/rating"
@@ -61,6 +61,14 @@
                 android:textAlignment="gravity"
                 android:textColor="@color/textcolor"
                 android:textSize="30sp" />
+
+           <android.support.v7.widget.RecyclerView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/cast">
+
+           </android.support.v7.widget.RecyclerView>
+
         </LinearLayout>
     </ScrollView>
 

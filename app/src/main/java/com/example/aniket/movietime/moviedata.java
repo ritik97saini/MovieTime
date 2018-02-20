@@ -16,3 +16,4 @@ public class moviedata implements Serializable{
 
     }
 }
+

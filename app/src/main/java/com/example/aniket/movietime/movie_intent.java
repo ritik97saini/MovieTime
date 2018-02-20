@@ -7,12 +7,16 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener,LoaderManager.LoaderCallbacks<URL> {
@@ -46,6 +51,7 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
     String id,yapi;
    static String key;
    String img="https://image.tmdb.org/t/p/w500";
+   boolean  vid= true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,9 +84,21 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
 
     }
 
+
     public  void task()
     {
         most_popular="https://api.themoviedb.org/3/movie/"+id+"/videos?api_key=1a7081ac1a8acf21ddff343f5485bab2";
+        mp_url=createUrl(most_popular);
+        String TAG="ritik";
+        Log.i(TAG, "onCreate: "+mp_url);
+        Random random =new Random();
+        LoaderManager loaderManager =getLoaderManager();
+        loaderManager.initLoader(random.nextInt(100),null,this);
+    }
+
+    public  void task1()
+    {
+        most_popular="https://api.themoviedb.org/3/movie/"+id+"/credits?api_key=1a7081ac1a8acf21ddff343f5485bab2";
         mp_url=createUrl(most_popular);
         String TAG="ritik";
         Log.i(TAG, "onCreate: "+mp_url);
@@ -101,19 +119,32 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
     public void onInitializationFailure(YouTubePlayer.Provider provider , YouTubeInitializationResult youTubeInitializationResult) {
         Toast.makeText(this,"error",Toast.LENGTH_SHORT).show();
     }
-
+ retrievedata load;
     @Override
     public Loader<URL> onCreateLoader(int i, Bundle bundle) {
-        retrievedata load= new retrievedata(this,mp_url,3);
+        if(vid){
+         load= new retrievedata(this,mp_url,3);}
+        else {
+            load= new retrievedata(this,mp_url,4);
+        }
         return load;
     }
 
     @Override
     public void onLoadFinished(Loader<URL> loader, URL url) {
-
+        if(vid){
         trailer.initialize(yapi,this);
+        vid=false;
+        task1();
+        }
+        else
+        {
+            Log.i("ritik", "onLoadFinished: printing data");
+            showcast();
+        }
 
     }
+
 
     @Override
     public void onLoaderReset(Loader<URL> loader) {
@@ -159,6 +190,31 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
         return jsonResponse;
     }
 
+    public static String makeHttpRequestcast(URL url) throws IOException {
+        String jsonResponse = "";
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.connect();
+            inputStream = urlConnection.getInputStream();
+            jsonResponse = readFromStream(inputStream);
+        } catch (IOException e) {
+
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                // function must handle java.io.IOException here
+                inputStream.close();
+            }
+        }
+        return jsonResponse;
+    }
 
 
     public static URL createUrl(String stringUrl) {
@@ -172,7 +228,6 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
         return url;
     }
 
-    static moviedata[] data=new moviedata[20];
     public static void readfromjson(String json)
     {
 
@@ -191,7 +246,48 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
 
     }
 
-    GridView view1;
+   static castdata[] cast;
 
+
+    public static void readfromjsoncast(String json)
+    {
+
+
+        try {
+            JSONObject base=new JSONObject(json);
+            JSONArray movies = base.getJSONArray("cast");
+            if(movies.length()>0)
+            {
+                cast = new castdata[movies.length()];
+                for(int i=0;i<movies.length();i++) {
+                JSONObject movie = movies.getJSONObject(i);
+
+                castdata temp =new castdata();
+                temp._id=movie.getInt("id");
+                temp.pic=movie.getString("profile_path");
+                temp.character=movie.getString("character");
+                temp.rname=movie.getString("name");
+                cast[i]=temp;
+            }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    RecyclerView castview;
+    RecyclerView.LayoutManager lman;
+public void showcast()
+{
+    castview=(RecyclerView) findViewById(R.id.cast);
+    castview.setHasFixedSize(true);
+    lman=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+    castview.setLayoutManager(lman);
+    cast_adapter adap=new cast_adapter(cast);
+    castview.setAdapter(adap);
+
+
+}
 
 }

@@ -28,16 +28,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="2dp"
-                android:text="An anthology series based on popular Internet Creepypastas, including Candle Cove, The No-End House, Butcher's Block and Hidden Door."
-                android:textAlignment="center"
+                android:text="  Title"
+                android:textAlignment="textStart"
                 android:textColor="@color/textcolor"
-                android:textSize="18sp" />
-
+                android:textSize="15sp"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -51,6 +50,31 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="2dp"
+                android:text="  Plot"
+                android:textAlignment="textStart"
+                android:textColor="@color/textcolor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="2dp"
+                android:text="An anthology series based on popular Internet Creepypastas, including Candle Cove, The No-End House, Butcher's Block and Hidden Door."
+                android:textAlignment="center"
+                android:textColor="@color/textcolor"
+                android:textSize="18sp" />
+
+
+
+            <TextView
                 android:id="@+id/rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,6 +85,16 @@
                 android:textAlignment="gravity"
                 android:textColor="@color/textcolor"
                 android:textSize="30sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="2dp"
+                android:text="  Cast"
+                android:textAlignment="textStart"
+                android:textColor="@color/textcolor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
            <android.support.v7.widget.RecyclerView
                android:layout_width="wrap_content"

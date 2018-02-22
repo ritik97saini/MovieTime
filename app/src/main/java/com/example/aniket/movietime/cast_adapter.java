@@ -37,7 +37,7 @@ public cast_adapter(castdata[] obj)
 }
 
     ImageView img;
-    TextView name;
+    TextView name,cname;
 Context context;
 
 
@@ -46,6 +46,8 @@ Context context;
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View view=inflater.inflate(R.layout.cast_adapter,parent,false);
         name = (TextView)view.findViewById(R.id.name);
+        cname=(TextView)view.findViewById(R.id.cname);
+
 
         img = (ImageView)view.findViewById(R.id.pic);
         ViewHolder hold= new ViewHolder(view);
@@ -65,8 +67,9 @@ Context context;
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String nm=data[position].rname+"\n as \n"+data[position].character;
+        String nm=data[position].rname;
         name.setText(nm);
+        cname.setText(data[position].character);
         String url ="https://image.tmdb.org/t/p/w500"+data[position].pic;
         Glide.with(context).load(url).into(img);
     }

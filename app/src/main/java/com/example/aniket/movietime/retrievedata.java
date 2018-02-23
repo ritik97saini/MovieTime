@@ -76,7 +76,7 @@ String data1;
         movie_intent.readfromjson(data1);
         return null;
     }
-    else
+    if(pos==4)
     {
         try {
 
@@ -86,6 +86,18 @@ String data1;
             e.printStackTrace();
         }
         movie_intent.readfromjsoncast(data1);
+        return null;
+    }
+    else
+    {
+        try {
+
+            data1 = search_intent.makeHttpRequest(mp_url);
+            Log.i(TAG, "loadInBackground: "+data1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        search_intent.readfromjson(data1);
         return null;
     }
 

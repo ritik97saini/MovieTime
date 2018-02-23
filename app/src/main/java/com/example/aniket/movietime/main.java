@@ -1,5 +1,6 @@
 package com.example.aniket.movietime;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TableLayout;
 import android.media.AsyncPlayer;
 
@@ -103,5 +105,11 @@ public class main extends AppCompatActivity implements tab.OnFragmentInteraction
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+    public void search(View view)
+    {
+        Intent movie_intent = new Intent(view.getContext(), com.example.aniket.movietime.search_intent.class);
+
+        startActivity(movie_intent);
     }
 }

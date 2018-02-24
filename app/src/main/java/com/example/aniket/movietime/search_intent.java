@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -44,7 +45,7 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
     String pageq="popular";
     String query ="fast";
     String most_popular="https://api.themoviedb.org/3/search/movie?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&query="+query+"&include_adult=true&page="+page1;
-
+    ProgressBar load;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
         setContentView(R.layout.search_intent);
         search =(EditText)findViewById(R.id.search);
         list=(ListView)findViewById(R.id.movies);
+
         search.addTextChangedListener(textchange);
 
         search.setOnEditorActionListener(
@@ -59,13 +61,18 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE)
+                        {
                             search.performClick();
                             query=search.getText().toString();
+
                             task();
+
 
                             InputMethodManager imm =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+
+
                             return true;
 
                         }return false;
@@ -85,7 +92,9 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             query=  s.toString();
+
             task();
+
         }
 
         @Override

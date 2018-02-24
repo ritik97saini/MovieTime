@@ -12,8 +12,15 @@ public class moviedata implements Serializable{
     public   int _id;
     public   boolean    video;
 
-    public moviedata(){
-
+    public moviedata()
+    {
+        title="a";
+        overview="a";
+        releasedate="a";
+        rating=1.0;
+        imgpath="a";
+        _id=0;
+        video=false;
     }
 }
 

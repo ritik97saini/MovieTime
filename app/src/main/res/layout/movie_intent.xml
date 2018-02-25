@@ -99,9 +99,30 @@
            <android.support.v7.widget.RecyclerView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:id="@+id/cast">
+               android:id="@+id/cast"
+               android:layout_margin="5dp">
 
            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="2dp"
+                android:text=" Torrents"
+                android:textAlignment="textStart"
+                android:textColor="@color/textcolor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/torrent"
+                android:layout_margin="5dp">
+
+            </android.support.v7.widget.RecyclerView>
+
 
         </LinearLayout>
     </ScrollView>

@@ -227,7 +227,7 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
     }
 
    static castdata[] cast;
-
+    static torrdata[] torrent;
 
     public static void readfromjsoncast(String json)
     {
@@ -237,6 +237,23 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
             JSONObject base=new JSONObject(json);
             JSONObject data1= base.getJSONObject("data");
             JSONObject cast1 = data1.getJSONObject("movie");
+            JSONArray torr=cast1.getJSONArray("torrents");
+            if(torr.length()>0)
+            {
+                torrent=new torrdata[torr.length()];
+                for(int i=0;i<torr.length();i++)
+                {
+                    torrdata data =new torrdata();
+                    JSONObject t=torr.getJSONObject(i);
+                    data.hash=t.getString("hash");
+                    data.peers=t.getInt("peers");
+                    data.quality=t.getString("quality");
+                    data.seeds=t.getInt("seeds");
+                    data.size=t.getString("size");
+                    torrent[i]=data;
+                }
+            }
+
             JSONArray movies=cast1.getJSONArray("cast");
 
             if(movies.length()>0)
@@ -263,16 +280,24 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
 
     }
 
-    RecyclerView castview;
-    RecyclerView.LayoutManager lman;
+    RecyclerView castview,torrents;
+    RecyclerView.LayoutManager lman,lman1;
 public void showcast()
 {
     castview=(RecyclerView) findViewById(R.id.cast);
+    torrents=(RecyclerView)findViewById(R.id.torrent);
+    torrents.setHasFixedSize(true);
     castview.setHasFixedSize(true);
     lman=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+    lman1=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+
     castview.setLayoutManager(lman);
+    torrents.setLayoutManager(lman1);
     cast_adapter adap=new cast_adapter(cast);
+    torrentadap adapt=new torrentadap(torrent);
+    torrents.setAdapter(adapt);
     castview.setAdapter(adap);
+
 
 
 }

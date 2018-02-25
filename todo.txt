@@ -1,0 +1,9 @@
+todo
+login
+saved items
+reviews
+settings
+
+optional 
+player
+tv series

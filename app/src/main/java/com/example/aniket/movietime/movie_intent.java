@@ -250,6 +250,7 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
                     data.quality=t.getString("quality");
                     data.seeds=t.getInt("seeds");
                     data.size=t.getString("size");
+                    data.name=cast1.getString("title");
                     torrent[i]=data;
                 }
             }

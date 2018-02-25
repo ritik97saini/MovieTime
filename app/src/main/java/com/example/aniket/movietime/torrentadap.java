@@ -66,7 +66,7 @@ Context context;
                     @Override
                     public void onClick(View v) {
 
-                        String moviename="MOVIE";
+                        String moviename=data[position].name;
                         String hash=data[position].hash;
 
                         String download="magnet:?xt=urn:btih:"+hash+"&dn="+moviename+"&tr=http://track.one:1234/announce&tr=udp://track.two:80&tr=udp://glotorrents.pw:6969/announce" +
@@ -79,7 +79,7 @@ Context context;
                         down.setAction(Intent.ACTION_VIEW);
 
                        down.setData(Uri.parse(download));
-                        context.startActivity(down);
+                        context.startActivity(Intent.createChooser(down,"Torrent"));
                     }
                 }
         );

@@ -12,5 +12,6 @@ public class torrdata implements Serializable {
     Integer peers;
     Integer seeds;
     String size;
+    String name;
 
 }

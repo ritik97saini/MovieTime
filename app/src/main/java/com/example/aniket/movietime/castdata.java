@@ -11,10 +11,11 @@ public class castdata  implements Serializable {
     public  String character ;
     public  String rname ;
     public  String pic ;
-    public  Integer _id;
+    public  String _id;
 
     public castdata() {
 
+        pic ="http://www.stablehands.org/wp-content/uploads/2014/03/blank-person-male.png";
     }
 
 

@@ -70,7 +70,7 @@ Context context;
         String nm=data[position].rname;
         name.setText(nm);
         cname.setText(data[position].character);
-        String url ="https://image.tmdb.org/t/p/w500"+data[position].pic;
+        String url =data[position].pic;
         Glide.with(context).load(url).into(img);
     }
 

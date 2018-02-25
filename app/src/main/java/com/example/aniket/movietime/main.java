@@ -37,7 +37,7 @@ public class main extends AppCompatActivity implements tab.OnFragmentInteraction
         final TabLayout tabs = (TabLayout) findViewById(R.id.tablayout);
         tabs.addTab(tabs.newTab().setText("Popular"));
         tabs.addTab(tabs.newTab().setText("Top Rated"));
-        tabs.addTab(tabs.newTab().setText("Upcoming"));
+        tabs.addTab(tabs.newTab().setText("Latest"));
         tabs.setTabGravity(TableLayout.TEXT_ALIGNMENT_GRAVITY);
 
         final ViewPager pager= (ViewPager)findViewById(R.id.viewpager);

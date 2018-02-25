@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="2dp"
-                android:text="  Cast"
+                android:text=" Top Cast"
                 android:textAlignment="textStart"
                 android:textColor="@color/textcolor"
                 android:textSize="15sp"

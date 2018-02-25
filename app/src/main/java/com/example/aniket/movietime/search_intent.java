@@ -107,7 +107,7 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
 
     public  void task()
     {
-        most_popular="https://api.themoviedb.org/3/search/movie?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&query="+query+"&include_adult=true&page="+page1;
+        most_popular="https://yts.am/api/v2/list_movies.json?query_term="+query;
         mp_url=createUrl(most_popular);
         String TAG="ritik";
         Log.i(TAG, "onCreate: "+mp_url);
@@ -176,13 +176,14 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
 
         try {
             JSONObject base=new JSONObject(json);
-            JSONArray movies = base.getJSONArray("results");
+            JSONObject data1=base.getJSONObject("data");
+            JSONArray movies = data1.getJSONArray("movies");
             if(movies.length()>0)
             {
-                int totalpage=base.getInt("total_pages");
-                int totalres=base.getInt("total_results");
+
+                int totalres=data1.getInt("movie_count");
                 int no;
-                if(totalpage>1)
+                if(totalres>20)
                     no=20;
                 else
                     no=totalres;
@@ -193,13 +194,12 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
                     JSONObject movie=movies.getJSONObject(i);
                     int id=movie.getInt("id");
 
-
                     String title=movie.getString("title");
-                    String poster_path=movie.getString("poster_path");
-                    String overview=movie.getString("overview");
-                    Double vote_average=movie.getDouble("vote_average");
-                    String release_date=movie.getString("release_date");
-                    Boolean vid=movie.getBoolean("video");
+                    String poster_path=movie.getString("large_cover_image");
+                    String overview=movie.getString("synopsis");
+                    Integer release_date=movie.getInt("year");
+                    Double vote_average=movie.getDouble("rating");
+                    String vid=movie.getString("yt_trailer_code");
                     moviedata obj =new moviedata();
                     obj.releasedate=release_date;
                     obj.rating=vote_average;
@@ -229,7 +229,8 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(Loader<URL> loader, URL data) {
-    printdata();
+
+        printdata();
     }
 
     @Override
@@ -239,19 +240,20 @@ public class search_intent extends AppCompatActivity implements LoaderManager.Lo
 
 
 
-    void printdata()
-    {
-      search_adapter adapter=new search_adapter(this,data);
-      list.setAdapter(adapter);
-      list.setOnItemClickListener(
-              new AdapterView.OnItemClickListener() {
-                  @Override
-                  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                      Intent movie_intent = new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
-                      movie_intent.putExtra("data", data[position]);
-                      startActivity(movie_intent);
-                  }
-              }
-      );
+    void printdata() {
+        if (data != null) {
+            search_adapter adapter = new search_adapter(this, data);
+            list.setAdapter(adapter);
+            list.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent movie_intent = new Intent(view.getContext(), com.example.aniket.movietime.movie_intent.class);
+                            movie_intent.putExtra("data", data[position]);
+                            startActivity(movie_intent);
+                        }
+                    }
+            );
+        }
     }
 }

@@ -51,7 +51,7 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
     String id,yapi;
    static String key;
    String img="https://image.tmdb.org/t/p/w500";
-   boolean  vid= true;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,11 +73,10 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
         rating.setText("  Rating :  "+sourcedata.rating.toString());
          yapi="AIzaSyCz1KGSRQAHbByi5rTQAm27VJ-Sf6TbeY4";
         trailer=(YouTubePlayerView) findViewById(R.id.trailer);
-        if(sourcedata.video)
-        Log.i("ritik", "onCreate: video ");
 
-            task();
-
+        trailer.initialize(yapi , this);
+           key=sourcedata.video;
+        task1();
 
 
 
@@ -85,20 +84,10 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
     }
 
 
-    public  void task()
-    {
-        most_popular="https://api.themoviedb.org/3/movie/"+id+"/videos?api_key=1a7081ac1a8acf21ddff343f5485bab2";
-        mp_url=createUrl(most_popular);
-        String TAG="ritik";
-        Log.i(TAG, "onCreate: "+mp_url);
-        Random random =new Random();
-        LoaderManager loaderManager =getLoaderManager();
-        loaderManager.initLoader(random.nextInt(100),null,this);
-    }
 
     public  void task1()
     {
-        most_popular="https://api.themoviedb.org/3/movie/"+id+"/credits?api_key=1a7081ac1a8acf21ddff343f5485bab2";
+        most_popular="https://yts.am/api/v2/movie_details.json?movie_id="+id+"&with_images=true&with_cast=true";
         mp_url=createUrl(most_popular);
         String TAG="ritik";
         Log.i(TAG, "onCreate: "+mp_url);
@@ -122,26 +111,17 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
  retrievedata load;
     @Override
     public Loader<URL> onCreateLoader(int i, Bundle bundle) {
-        if(vid){
-         load= new retrievedata(this,mp_url,3);}
-        else {
+
             load= new retrievedata(this,mp_url,4);
-        }
+
         return load;
     }
 
     @Override
     public void onLoadFinished(Loader<URL> loader, URL url) {
-        if(vid){
-        trailer.initialize(yapi,this);
-        vid=false;
-        task1();
-        }
-        else
-        {
-            Log.i("ritik", "onLoadFinished: printing data");
+
             showcast();
-        }
+
 
     }
 
@@ -255,7 +235,10 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
 
         try {
             JSONObject base=new JSONObject(json);
-            JSONArray movies = base.getJSONArray("cast");
+            JSONObject data1= base.getJSONObject("data");
+            JSONObject cast1 = data1.getJSONObject("movie");
+            JSONArray movies=cast1.getJSONArray("cast");
+
             if(movies.length()>0)
             {
                 cast = new castdata[movies.length()];
@@ -263,9 +246,13 @@ public class movie_intent extends YouTubeBaseActivity implements YouTubePlayer.O
                 JSONObject movie = movies.getJSONObject(i);
 
                 castdata temp =new castdata();
-                temp._id=movie.getInt("id");
-                temp.pic=movie.getString("profile_path");
-                temp.character=movie.getString("character");
+                if(movie.has("imdb_code"))
+                temp._id=movie.getString("imdb_code");
+                    if(movie.has("url_small_image"))
+                temp.pic=movie.getString("url_small_image");
+                    if(movie.has("character_name"))
+                temp.character=movie.getString("character_name");
+                    if(movie.has("name"))
                 temp.rname=movie.getString("name");
                 cast[i]=temp;
             }

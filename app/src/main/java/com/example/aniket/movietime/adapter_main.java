@@ -35,12 +35,12 @@ public class adapter_main extends ArrayAdapter<moviedata>{
         View adap=inflater.inflate(R.layout.adapter,parent,false);
         TextView title=(TextView)adap.findViewById(R.id.title);
         TextView rating=(TextView)adap.findViewById(R.id.rating);
-        String posterp="https://image.tmdb.org/t/p/w500";
+        String posterp;
 
 
 
 if(data[i]!=null){
-    posterp+=data[i].imgpath;
+    posterp=data[i].imgpath;
     URL url=tab.createUrl(posterp);
     ImageView poster=(ImageView)adap.findViewById(R.id.poster);
     Glide.with(getContext()).load(url).into(poster);

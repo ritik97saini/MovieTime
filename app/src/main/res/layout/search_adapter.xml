@@ -18,8 +18,8 @@
         android:layout_margin="5dp">
     <TextView
         android:id="@+id/title"
-        android:layout_width="165dp"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:textColor="@color/textcolor"
         android:layout_weight="1"
         android:text="Title"
@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/rating"
-        android:layout_width="165dp"
-        android:layout_height="35dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:textColor="@color/textcolor"
         android:fontFamily="serif"
         android:text="rating"

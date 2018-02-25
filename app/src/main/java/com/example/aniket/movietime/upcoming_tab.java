@@ -54,10 +54,9 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
 
     private OnFragmentInteractionListener mListener;
     String pageq="popular";
-    String most_popular="https://api.themoviedb.org/3/movie/"+pageq+"?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&page="+page1;
+    String most_popular="https://yts.am/api/v2/list_movies.json?sort_by=year&order_by=desc&page="+page1;
 
     public upcoming_tab() {
-        pageq="upcoming"; most_popular="https://api.themoviedb.org/3/movie/"+pageq+"?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&page="+page1;
     }
 
 
@@ -79,7 +78,7 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
     }
     public  void task()
     {
-        most_popular="https://api.themoviedb.org/3/movie/"+pageq+"?api_key=1a7081ac1a8acf21ddff343f5485bab2&language=en-US&page="+page1;
+        most_popular="https://yts.am/api/v2/list_movies.json?sort_by=year&order_by=desc&page="+page1;
         mp_url=createUrl(most_popular);
         String TAG="ritik";
         Log.i(TAG, "onCreate: "+mp_url);
@@ -148,7 +147,8 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
 
         try {
             JSONObject base=new JSONObject(json);
-            JSONArray movies = base.getJSONArray("results");
+            JSONObject data1 = base.getJSONObject("data");
+            JSONArray movies = data1.getJSONArray("movies");
             if(movies.length()>0)
             {
                 for(int i=0;i<movies.length();i++)
@@ -158,11 +158,11 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
 
 
                     String title=movie.getString("title");
-                    String poster_path=movie.getString("poster_path");
-                    String overview=movie.getString("overview");
-                    Double vote_average=movie.getDouble("vote_average");
-                    String release_date=movie.getString("release_date");
-                    Boolean vid=movie.getBoolean("video");
+                    String poster_path=movie.getString("large_cover_image");
+                    String overview=movie.getString("synopsis");
+                    Integer release_date=movie.getInt("year");
+                    Double vote_average=movie.getDouble("rating");
+                    String vid=movie.getString("yt_trailer_code");
                     moviedata obj =new moviedata();
                     obj.releasedate=release_date;
                     obj.rating=vote_average;
@@ -181,6 +181,7 @@ public class upcoming_tab extends Fragment implements LoaderManager.LoaderCallba
         }
 
     }
+
 
     GridView view1;
 

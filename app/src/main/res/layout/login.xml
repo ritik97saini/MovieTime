@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="85dp"
+        android:src="@mipmap/icon1"
+        android:scaleType="fitXY"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Username?E-mail"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"/>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:id="@+id/username"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="220dp"
+        android:background="@color/textcolor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Password"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"/>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:id="@+id/password"
+        android:inputType="textPassword"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="345dp"
+        android:background="@color/textcolor"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:onClick="login"
+        android:text="Login"
+        android:layout_marginTop="435dp"
+        android:layout_marginLeft="155dp"
+        android:background="@color/blue"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="New User? Click Here!"
+        android:layout_marginTop="490dp"
+        android:layout_marginLeft="100dp"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
+        android:clickable="true"
+        android:onClick="register"
+        />
+
+</RelativeLayout>

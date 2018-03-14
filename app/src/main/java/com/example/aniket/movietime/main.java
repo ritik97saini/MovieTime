@@ -19,17 +19,25 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.media.AsyncPlayer;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class main extends AppCompatActivity implements tab.OnFragmentInteractionListener,upcoming_tab.OnFragmentInteractionListener,top_rated_tab.OnFragmentInteractionListener {
 
     DrawerLayout drawer;
     ActionBarDrawerToggle abdt;
+    FirebaseAuth mauth =FirebaseAuth.getInstance();
+    FirebaseUser user=mauth.getCurrentUser();
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movies_display);
+
+        if(user==null)
+            log_out();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -83,6 +91,17 @@ public class main extends AppCompatActivity implements tab.OnFragmentInteraction
             }
         });
 
+    }
+   public void log_out()
+   {
+       mauth.signOut();
+       Intent login= new Intent(this, com.example.aniket.movietime.login.class);
+       startActivity(login);
+   }
+
+    public void logout(View view)
+    {
+        log_out();
     }
 
     @Override

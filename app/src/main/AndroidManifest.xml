@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main">
+        <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".movie_intent" />
         <activity android:name=".search_intent" />
+        <activity android:name=".main" />
     </application>
 
 </manifest>

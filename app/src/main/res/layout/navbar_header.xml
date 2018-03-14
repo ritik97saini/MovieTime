@@ -8,5 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/icon"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="logout"
+        android:textColor="@color/textcolor"
+        android:onClick="logout"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginLeft="40dp"/>
 
 </LinearLayout>

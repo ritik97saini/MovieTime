@@ -10,20 +10,20 @@
         android:id="@+id/red"
         android:icon="@android:drawable/btn_star_big_on"
         android:orderInCategory="1"
-        android:title="red"
+        android:title="first"
         app:showAsAction="never"
         />
     <item
         android:id="@+id/green"
         android:icon="@android:drawable/btn_star_big_on"
         android:orderInCategory="2"
-        android:title="settings"
+        android:title="second"
         app:showAsAction="never" />
         <item
             android:id="@+id/blue"
             android:icon="@android:drawable/btn_star_big_on"
             android:orderInCategory="3"
-            android:title="blue"
+            android:title="third"
             app:showAsAction="never" />
 
 

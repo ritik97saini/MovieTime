@@ -50,6 +50,20 @@ public class login extends AppCompatActivity{
         String name = username.getText().toString();
         String pass= password.getText().toString();
 
+        if(name=="")
+        {
+            Toast.makeText(login.this, "Username field can't be left empty", Toast.LENGTH_SHORT).show();
+            password.setText("");
+            return;
+        }
+
+        if(pass=="")
+        {
+            Toast.makeText(login.this, "Password field can't be left empty", Toast.LENGTH_SHORT).show();
+            password.setText("");
+            return;
+        }
+
 
         mauth.signInWithEmailAndPassword(name, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -73,5 +87,11 @@ public class login extends AppCompatActivity{
                         // ...
                     }
                 });
+    }
+
+    public void register(View view)
+    {
+        Intent i= new Intent(this, register.class);
+        startActivity(i);
     }
 }

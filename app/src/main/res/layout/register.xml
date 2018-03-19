@@ -5,7 +5,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:text="Login"
+        android:text="Register"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="25dp"
         android:textSize="40sp"
@@ -42,24 +42,29 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="233dp"
         android:background="@color/textcolor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Confirm Password"
+        android:layout_marginTop="275dp"
+        android:layout_marginLeft="25dp"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"/>
+    <EditText
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:id="@+id/cpassword"
+        android:inputType="textPassword"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="320dp"
+        android:background="@color/textcolor"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:onClick="login"
-        android:text="Login"
-        android:layout_marginTop="320dp"
+        android:onClick="register"
+        android:text="Register"
+        android:layout_marginTop="370dp"
         android:layout_marginLeft="125dp"
         android:background="@color/blue"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="New User? Click Here!"
-        android:layout_marginTop="390dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"
-        android:textColor="@color/blue"
-        android:clickable="true"
-        android:onClick="register"
-        />
 
 </RelativeLayout>

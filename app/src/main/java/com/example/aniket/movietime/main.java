@@ -28,16 +28,23 @@ public class main extends AppCompatActivity implements tab.OnFragmentInteraction
     DrawerLayout drawer;
     ActionBarDrawerToggle abdt;
     FirebaseAuth mauth =FirebaseAuth.getInstance();
-    FirebaseUser user=mauth.getCurrentUser();
 
+    @Override
+    protected void onStart() {
+        FirebaseUser user=mauth.getCurrentUser();
+
+        super.onStart();
+        if(user==null)
+            log_out();
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movies_display);
 
-        if(user==null)
-            log_out();
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
